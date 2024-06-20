@@ -25,9 +25,11 @@ func (p *Packet) SendTo(c *net.UnixConn) error {
 	binary.BigEndian.PutUint16(hdr[2:4], uint16(len(p.FDs)))
 	binary.BigEndian.PutUint32(hdr[4:8], p.Flags)
 	binary.BigEndian.PutUint32(hdr[8:12], uint32(len(p.Data)))
-	_, err := c.Write(append(hdr, p.Data...))
-	if err != nil {
-		return err
+	if len(p.Data) > 0 {
+		_, err := c.Write(append(hdr, p.Data...))
+		if err != nil {
+			return err
+		}
 	}
 	if len(p.FDs) == 0 {
 		return nil
@@ -66,10 +68,14 @@ func (p *Packet) ReadFrom(c *net.UnixConn) error {
 	if ln > 1024*1024 {
 		return errors.New("packet is too large")
 	}
-	p.Data = make([]byte, ln)
-	_, err = io.ReadFull(c, p.Data)
-	if err != nil {
-		return err
+	if ln == 0 {
+		p.Data = nil
+	} else {
+		p.Data = make([]byte, ln)
+		_, err = io.ReadFull(c, p.Data)
+		if err != nil {
+			return err
+		}
 	}
 
 	if nfd == 0 {

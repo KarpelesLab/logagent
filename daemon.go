@@ -30,6 +30,8 @@ func (d *logdaemon) start() error {
 			os.Remove(socket)
 		} else {
 			// switch to upgrade mode!
+			pkt := &logclient.Packet{Type: pktTakeover}
+			pkt.SendTo(c)
 			c.Close()
 		}
 	}
@@ -65,6 +67,11 @@ func (d *logdaemon) handleClient(c *net.UnixConn) {
 				log.Printf("failed to read from client: %s", err)
 			}
 			return
+		}
+
+		switch pkt.Type {
+		default:
+			log.Printf("unhandled packet from client: %x", pkt.Type)
 		}
 	}
 }
