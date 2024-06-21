@@ -1,5 +1,6 @@
 package main
 
+// packet IDs below are reserved to logagent to logagent communications (0xffxx range)
 const (
 	pktTakeover         = 0xff00 // sent from daemon to daemon
 	pktTakeoverListenFd = 0xff01 // includes listening socket (name in packet)
