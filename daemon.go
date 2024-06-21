@@ -7,7 +7,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/KarpelesLab/logagent/logclient"
+	"github.com/KarpelesLab/klbslog"
 )
 
 type logdaemon struct {
@@ -15,7 +15,7 @@ type logdaemon struct {
 }
 
 func (d *logdaemon) start() error {
-	socket := "/run/logagent"
+	socket := "/run/logagent.sock"
 	if id := os.Getuid(); id > 0 {
 		socket = fmt.Sprintf("/tmp/.logagent-%d.sock", id)
 	}
@@ -30,7 +30,7 @@ func (d *logdaemon) start() error {
 			os.Remove(socket)
 		} else {
 			// switch to upgrade mode!
-			pkt := &logclient.Packet{Type: pktTakeover}
+			pkt := &klbslog.Packet{Type: pktTakeover}
 			pkt.SendTo(c)
 			c.Close()
 		}
@@ -60,7 +60,7 @@ func (d *logdaemon) handleClient(c *net.UnixConn) {
 	defer c.Close()
 
 	for {
-		pkt := &logclient.Packet{}
+		pkt := &klbslog.Packet{}
 		err := pkt.ReadFrom(c)
 		if err != nil {
 			if err != io.EOF {
