@@ -30,9 +30,7 @@ func (d *logdaemon) start() error {
 			os.Remove(socket)
 		} else {
 			// switch to upgrade mode!
-			pkt := &klbslog.Packet{Type: pktTakeover}
-			pkt.SendTo(c)
-			c.Close()
+			return d.upgrade(c)
 		}
 	}
 
@@ -42,6 +40,15 @@ func (d *logdaemon) start() error {
 		log.Printf("failed to listen: %s", err)
 		return err
 	}
+	go d.loop()
+	return nil
+}
+
+func (d *logdaemon) upgrade(c *net.UnixConn) error {
+	defer c.Close()
+	log.Printf("starting upgrade process")
+	pkt := &klbslog.Packet{Type: pktTakeover}
+	pkt.SendTo(c)
 	return nil
 }
 

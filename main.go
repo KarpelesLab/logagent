@@ -1,9 +1,12 @@
 package main
 
+import "github.com/KarpelesLab/shutdown"
+
 func main() {
-	// determine socket name
+	shutdown.SetupSignals()
+
 	d := &logdaemon{}
 	d.start()
 
-	d.loop()
+	shutdown.Wait()
 }
