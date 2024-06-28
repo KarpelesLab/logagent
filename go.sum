@@ -1,5 +1,9 @@
 github.com/KarpelesLab/klbslog v0.3.3 h1:7+wfeMkI91miw1K4LU/EGZjtTTRy+LeI7y+ArwFMQYA=
 github.com/KarpelesLab/klbslog v0.3.3/go.mod h1:bssooYDBqqeKWFEUpfJh7RGW39xcYptS3+ESq2hM6d4=
+github.com/KarpelesLab/klbslog v0.3.4 h1:+L560619Z0WYjpD5zpD6tEz+LsXSQqrEDTo6S6RHen8=
+github.com/KarpelesLab/klbslog v0.3.4/go.mod h1:bssooYDBqqeKWFEUpfJh7RGW39xcYptS3+ESq2hM6d4=
+github.com/KarpelesLab/klbslog v0.3.5 h1:xJRqjU4xaODamTqyOyzr7gJorUhWpDLEAJ4Bipt8RPM=
+github.com/KarpelesLab/klbslog v0.3.5/go.mod h1:bssooYDBqqeKWFEUpfJh7RGW39xcYptS3+ESq2hM6d4=
 github.com/KarpelesLab/shutdown v1.0.0 h1:6UrbE3o4s/vRvGTMPmoP+cx/0SKnVEWNIqYblrM5Tjk=
 github.com/KarpelesLab/shutdown v1.0.0/go.mod h1:rSfVclgiAXkfk9oARkCzQKHHTKp87ZiFN1sfFNiqL/A=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
